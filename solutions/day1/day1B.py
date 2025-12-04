@@ -1,5 +1,4 @@
 from loguru import logger
-import math
 
 
 def deter_direction(direction: str) -> int:
