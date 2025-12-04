@@ -6,5 +6,5 @@ def test_main_part1():
 
 
 def test_main_part2():
-    som = day3.main(file="example_day3.txt")
+    som = day3B.main(file="example_day3.txt")
     assert som == 3121910778619

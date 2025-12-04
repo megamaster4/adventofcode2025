@@ -14,7 +14,6 @@ def get_max_num(text: str):
     return max_num
 
 
-
 def main(file: str):
     mod_path = Path(__file__).parent
 
