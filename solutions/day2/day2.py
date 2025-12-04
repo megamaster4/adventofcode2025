@@ -1,12 +1,20 @@
 from loguru import logger
 from pathlib import Path
 from typing import Generator
+import re
 
 
-def is_repeating_string(s):
-    res = (s + s).find(s, 1) != len(s)
-    logger.debug(s.find_all(s))
-    return res
+def find_repeating_sequences(text: str):
+    search_text = ""
+    all_matches = {}
+    logger.info(text)
+    for letter in text:
+        search_text += letter
+        logger.info(letter)
+        logger.info(search_text)
+        matches = [match.start() for match in re.finditer(search_text, text)]
+        all_matches[search_text] = matches
+    return all_matches
 
 
 def create_range(numbers: list[str]) -> Generator:
@@ -27,7 +35,7 @@ def main():
     for sequence in data:
         sequence_gen = create_range(sequence)
         for num in sequence_gen:
-            is_repeating = is_repeating_string(str(num))
+            is_repeating = find_repeating_sequences(str(num))
             logger.debug(num)
             logger.debug(is_repeating)
 
