@@ -2,6 +2,7 @@ from loguru import logger
 from pathlib import Path
 from typing import Generator
 import re
+import numpy as np
 
 def find_repeating_sequences(text: str):
     search_text = ""
@@ -9,13 +10,15 @@ def find_repeating_sequences(text: str):
     for letter in text:
         search_text += letter
         matches = [match.start() for match in re.finditer(search_text, text)]
-        if len(matches) == 2:
+        if len(matches) > 1:
             result = ""
             length_str = len(search_text)
-            if matches[1]-matches[0] == length_str:
+            np_matches = np.array(matches) # converting `a` to numpy array
+            diff_list = np.diff(np_matches)
+            if np.all(diff_list == length_str):
                 for index in matches:
                     result += text[index]
-                if (len(text)/len(result))%1 == 0 and text == 2 * search_text:
+                if len(text) == len(matches) or text == len(matches) * search_text:
                     return True
     return False
 
